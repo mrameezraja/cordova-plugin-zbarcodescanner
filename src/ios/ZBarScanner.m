@@ -6,7 +6,7 @@
 
 #import <Foundation/Foundation.h>
 #import <AudioToolbox/AudioToolbox.h>
-#import "IBarcodeScanner.h"
+#import "ZBarScanner.h"
 #import "ZBarSDK.h"
 
 @interface ZBarScanner () <ZBarReaderDelegate>
