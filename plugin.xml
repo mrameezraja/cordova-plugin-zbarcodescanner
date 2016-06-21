@@ -26,6 +26,7 @@
       <resource-file src="src/ios/ZBarSDK/Resources/zbar-help.html" />
       <resource-file src="src/ios/ZBarSDK/Resources/zbar-helpicons.png" />
       <resource-file src="src/ios/ZBarSDK/Resources/zbar-samples.png" />
+      <resource-file src="src/ios/cancel-scanning@2x.png" />
 
       <header-file src="src/ios/ZBarScanner.h" />
       <source-file src="src/ios/ZBarScanner.m" />

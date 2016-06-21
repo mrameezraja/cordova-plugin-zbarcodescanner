@@ -97,7 +97,9 @@ bool isScannerActive = false;
             CFURLRef soundFileURLRef  = CFBundleCopyResourceURL(CFBundleGetMainBundle(), CFSTR("ZBarScanner.bundle/beep"), CFSTR ("caf"), NULL);
             AudioServicesCreateSystemSoundID(soundFileURLRef, &_soundFileObject);
 
-            [self.viewController presentModalViewController: reader animated: YES];
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                [self.viewController presentViewController:reader animated:YES completion:nil];
+            });
             isScannerActive = true;
 
             /*[UIView animateWithDuration:4.0 delay:0.0 options: UIViewAnimationOptionRepeat | UIViewAnimationOptionAutoreverse | UIViewAnimationOptionCurveEaseInOut animations:^{
@@ -114,7 +116,10 @@ bool isScannerActive = false;
 
 - (void)cancelButtonPressed:(id)sender
 {
-    [self.viewController dismissModalViewControllerAnimated: YES];
+    //dispatch_sync(dispatch_get_main_queue(), ^{
+      //[self.viewController dismissViewControllerAnimated:YES completion:nil];
+      [self.viewController dismissModalViewControllerAnimated: YES];
+    //});
     [self sendResult: @"canceled"];
 }
 
@@ -131,7 +136,10 @@ bool isScannerActive = false;
     NSLog(@"result: %@", symbol.data);
     [self sendResult: symbol.data];
 
-    [reader dismissModalViewControllerAnimated: YES];
+    //dispatch_sync(dispatch_get_main_queue(), ^{
+        //[reader dismissViewControllerAnimated:NO completion:nil];
+        [reader dismissModalViewControllerAnimated: YES];
+    //});
 }
 
 - (void)sendResult:(NSString*) str

@@ -7,7 +7,7 @@ Installation
 ------------
 
 ```
-cordova plugin add <plugin-repo-url>
+cordova plugin add https://github.com/mrameezraja/cordova-plugin-zbarcodescanner
 ```
 
 
@@ -26,8 +26,6 @@ cordova.plugins.zbarScanner.scan
     // 8394834938, canceled
   }, function(error){
     console.log(error);
-  },{
-    cancelText: 'Cancel'
   });
 </code>
 </pre>
