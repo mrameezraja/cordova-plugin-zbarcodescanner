@@ -1,4 +1,4 @@
-ZBarScanner
+ZBarcodeScanner
 ====================
 
 An cordova implementation of ZBar SDK(http://zbar.sourceforge.net/). Currently supports only camera feed scanning.

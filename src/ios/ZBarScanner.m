@@ -6,7 +6,7 @@
 
 #import <Foundation/Foundation.h>
 #import <AudioToolbox/AudioToolbox.h>
-#import "ZBarScanner.h"
+#import "IBarcodeScanner.h"
 #import "ZBarSDK.h"
 
 @interface ZBarScanner () <ZBarReaderDelegate>
@@ -71,6 +71,21 @@ bool isScannerActive = false;
 
             [scannerOverlayView addSubview: toolbar];
 
+            int laserViewMargin = 20;
+            UIView* laserView = [[UIView alloc] initWithFrame:CGRectMake(laserViewMargin, scannerOverlayView.frame.size.height/2 - laserViewMargin, scannerOverlayView.frame.size.width - laserViewMargin * 2, 3)];
+            laserView.backgroundColor = [UIColor greenColor];
+            laserView.layer.shadowColor = laserView.backgroundColor.CGColor;
+            laserView.layer.shadowOffset = CGSizeMake(0.10, 0.10);
+            laserView.layer.shadowOpacity = 0.6;
+            laserView.layer.shadowRadius = 1.5;
+            laserView.alpha = 0.6;
+            if (![[scannerOverlayView subviews] containsObject:laserView]) [scannerOverlayView addSubview:laserView];
+
+            //[UIView animateWithDuration:0.2 animations:^{
+                //laserView.alpha = 1.0;
+            //}];
+
+
             reader.cameraOverlayView = scannerOverlayView;
 
             ZBarImageScanner *scanner = reader.scanner;
@@ -83,8 +98,15 @@ bool isScannerActive = false;
             AudioServicesCreateSystemSoundID(soundFileURLRef, &_soundFileObject);
 
             [self.viewController presentModalViewController: reader animated: YES];
-            //[[self topMostController] presentModalViewController: reader animated: YES];
             isScannerActive = true;
+
+            /*[UIView animateWithDuration:4.0 delay:0.0 options: UIViewAnimationOptionRepeat | UIViewAnimationOptionAutoreverse | UIViewAnimationOptionCurveEaseInOut animations:^{
+             NSLog(@"animating...");
+             laserView.frame = CGRectMake(0, scannerOverlayView.frame.size.height, scannerOverlayView.frame.size.width, 3);
+             } completion:^(BOOL done){
+             laserView.frame = CGRectMake(0, 0, scannerOverlayView.frame.size.width, 3);
+             }];*/
+
         }
     }];
 
@@ -98,7 +120,7 @@ bool isScannerActive = false;
 
 - (void) imagePickerController: (UIImagePickerController*) reader didFinishPickingMediaWithInfo: (NSDictionary*) info
 {
-    // ADD: get the decode results
+    // get the decode results
     id<NSFastEnumeration> results = [info objectForKey: ZBarReaderControllerResults];
     ZBarSymbol *symbol = nil;
     for(symbol in results)
@@ -122,10 +144,26 @@ bool isScannerActive = false;
     [self.commandDelegate sendPluginResult:result callbackId: callbackId];
 }
 
+- (BOOL)shouldAutorotate
+{
+    return NO;
+}
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
+{
+    return UIInterfaceOrientationPortrait;
+}
+
+- (NSUInteger)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskPortrait;
+}
+
 - (BOOL) shouldAutorotateToInterfaceOrientation: (UIInterfaceOrientation) orient
 {
     return(NO);
 }
+
 
 - (UIViewController*) topMostController
 {
@@ -137,6 +175,7 @@ bool isScannerActive = false;
 
     return topController;
 }
+
 
 - (void)dealloc
 {
