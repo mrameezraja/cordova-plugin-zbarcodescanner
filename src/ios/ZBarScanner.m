@@ -37,29 +37,16 @@ bool isScannerActive = false;
             scannerOverlayView.autoresizingMask    = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
             scannerOverlayView.opaque              = NO;
 
-            UIToolbar* toolbar = [[UIToolbar alloc] init];
+            /*UIToolbar* toolbar = [[UIToolbar alloc] init];
             toolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
-
-            //[toolbar setBackgroundImage:[[UIImage alloc] init] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
             [toolbar setBarStyle:UIBarStyleBlack];
             toolbar.translucent = YES;
-
-            //[toolbar setBackgroundColor:[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.8]];
-
             id cancelButton = [[UIBarButtonItem alloc]
                                initWithTitle: options[@"cancelText"]
                                style: UIBarButtonItemStylePlain
                                target:(id)self
                                action:@selector(cancelButtonPressed:)
                                ];
-            //[cancelButton setTitle:@"Recent" forState:UIControlStateNormal];
-            //[cancelButton setBackgroundImage:[UIImage imageNamed:@"back.png"]forState:UIControlStateNormal];
-            /*id flexSpace = [[UIBarButtonItem alloc]
-             initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
-             target:nil
-             action:nil
-             ];
-             toolbar.items = [NSArray arrayWithObjects:flexSpace,cancelButton,flexSpace,nil];*/
             toolbar.items = [NSArray arrayWithObjects:cancelButton, nil];
             toolbar.tintColor = [UIColor whiteColor];
             [toolbar sizeToFit];
@@ -68,8 +55,7 @@ bool isScannerActive = false;
             CGFloat rootViewWidth  = CGRectGetWidth(scannerOverlayView.bounds);
             CGRect  rectArea       = CGRectMake(0, rootViewHeight - toolbarHeight, rootViewWidth, toolbarHeight);
             [toolbar setFrame:rectArea];
-
-            [scannerOverlayView addSubview: toolbar];
+            [scannerOverlayView addSubview: toolbar];*/
 
             int laserViewMargin = 20;
             UIView* laserView = [[UIView alloc] initWithFrame:CGRectMake(laserViewMargin, scannerOverlayView.frame.size.height/2 - laserViewMargin, scannerOverlayView.frame.size.width - laserViewMargin * 2, 3)];
@@ -84,7 +70,6 @@ bool isScannerActive = false;
             //[UIView animateWithDuration:0.2 animations:^{
                 //laserView.alpha = 1.0;
             //}];
-
 
             reader.cameraOverlayView = scannerOverlayView;
 
@@ -108,10 +93,8 @@ bool isScannerActive = false;
              } completion:^(BOOL done){
              laserView.frame = CGRectMake(0, 0, scannerOverlayView.frame.size.width, 3);
              }];*/
-
         }
     }];
-
 }
 
 - (void)cancelButtonPressed:(id)sender
