@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
   xmlns:android="http://schemas.android.com/apk/res/android"
-  id="cordova-plugin-zbarscanner"
+  id="cordova-plugin-zbarcodescanner"
   version="0.0.1">
 
     <name>ZBarScanner</name>
@@ -63,5 +63,33 @@
       <framework src="libiconv.dylib" />
 
       <source-file src="src/ios/ZBarSDK/libzbar.a" framework="true" />
+    </platform>
+
+    <platform name="android">
+
+        <source-file src="src/android/ZBarScanner.java" target-dir="src/com/mrameezraja/plugins/zbarscanner" />
+
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="ZBarScanner">
+                <param name="android-package" value="com.mrameezraja.plugins.zbarscanner.ZBarScanner" />
+            </feature>
+        </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+            <activity android:name="com.dm.zbar.android.scanner.ZBarScannerActivity"
+                      android:screenOrientation="portrait"
+                      android:label="@string/app_name" />
+        </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/manifest">
+            <uses-permission android:name="android.permission.CAMERA" />
+            <uses-permission android:name="android.permission.FLASHLIGHT" />
+            <!-- Not required to allow users to work around this -->
+            <uses-feature android:name="android.hardware.camera" android:required="false" />
+        </config-file>
+
+        <framework src="src/android/barcodescanner.gradle" custom="true" type="gradleReference"/>
+        <resource-file src="src/android/barcodescanner-release-2.0.1.aar" target="libs/barcodescanner.aar" />
+
     </platform>
 </plugin>
