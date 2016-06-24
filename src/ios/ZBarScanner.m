@@ -1,7 +1,7 @@
 
 #import <Foundation/Foundation.h>
 #import <AudioToolbox/AudioToolbox.h>
-#import "ZBarcodeScannerViewController"
+#import "ZBarcodeScannerViewController.h"
 #import "ZBarScanner.h"
 #import "ZBarSDK.h"
 
