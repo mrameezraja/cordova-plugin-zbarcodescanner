@@ -35,3 +35,8 @@ Supported Platforms
 
 - IOS
 - Android (Coming soon)
+
+License
+-------
+
+ MIT

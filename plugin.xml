@@ -30,6 +30,8 @@
 
       <header-file src="src/ios/ZBarScanner.h" />
       <source-file src="src/ios/ZBarScanner.m" />
+      <header-file src="src/ios/ZBarScannerViewController.h" />
+      <source-file src="src/ios/ZBarScannerViewController.m" />
 
       <header-file src="src/ios/ZBarSDK/Headers/ZBarSDK/zbar/Decoder.h" />
       <header-file src="src/ios/ZBarSDK/Headers/ZBarSDK/zbar/Exception.h" />

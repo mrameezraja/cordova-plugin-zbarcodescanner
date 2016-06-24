@@ -1,11 +1,7 @@
-//
-//
-//  Created by Rameez Raja <mrameezraja@gmail.com> on 3/7/16.
-//
-//
 
 #import <Foundation/Foundation.h>
 #import <AudioToolbox/AudioToolbox.h>
+#import "ZBarcodeScannerViewController"
 #import "ZBarScanner.h"
 #import "ZBarSDK.h"
 
@@ -19,7 +15,6 @@ NSString* callbackId;
 SystemSoundID _soundFileObject;
 bool isScannerActive = false;
 
-
 - (void)startScanning:(CDVInvokedUrlCommand*)command
 {
     callbackId = command.callbackId;
@@ -27,7 +22,8 @@ bool isScannerActive = false;
     [self.commandDelegate runInBackground:^{
         if(!isScannerActive)
         {
-            ZBarReaderViewController *reader = [ZBarReaderViewController new];
+            //ZBarReaderViewController *reader = [ZBarReaderViewController new];
+            ZBarcodeScannerViewController *reader = [ZBarcodeScannerViewController new];
             reader.readerDelegate = self;
             reader.supportedOrientationsMask = ZBarOrientationMaskAll;
             reader.showsZBarControls = false;
@@ -56,6 +52,12 @@ bool isScannerActive = false;
             CGRect  rectArea       = CGRectMake(0, rootViewHeight - toolbarHeight, rootViewWidth, toolbarHeight);
             [toolbar setFrame:rectArea];
             [scannerOverlayView addSubview: toolbar];*/
+
+            UIButton *btnCancel = [[UIButton alloc] initWithFrame:CGRectMake(scannerOverlayView.frame.size.width/2 - 32, scannerOverlayView.frame.size.height - 64 , 64, 64)];
+            [btnCancel setImage:[UIImage imageNamed:@"cancel-scanning.png"] forState:UIControlStateNormal];
+            [btnCancel addTarget:self action:@selector(cancelButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+            btnCancel.tintColor = [UIColor blackColor];
+            [scannerOverlayView addSubview:btnCancel];
 
             int laserViewMargin = 20;
             UIView* laserView = [[UIView alloc] initWithFrame:CGRectMake(laserViewMargin, scannerOverlayView.frame.size.height/2 - laserViewMargin, scannerOverlayView.frame.size.width - laserViewMargin * 2, 3)];
@@ -134,27 +136,6 @@ bool isScannerActive = false;
     CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:str];
     [self.commandDelegate sendPluginResult:result callbackId: callbackId];
 }
-
-- (BOOL)shouldAutorotate
-{
-    return NO;
-}
-
-- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
-{
-    return UIInterfaceOrientationPortrait;
-}
-
-- (NSUInteger)supportedInterfaceOrientations
-{
-    return UIInterfaceOrientationMaskPortrait;
-}
-
-- (BOOL) shouldAutorotateToInterfaceOrientation: (UIInterfaceOrientation) orient
-{
-    return(NO);
-}
-
 
 - (UIViewController*) topMostController
 {
