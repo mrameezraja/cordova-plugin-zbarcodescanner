@@ -65,7 +65,7 @@
       <source-file src="src/ios/ZBarSDK/libzbar.a" framework="true" />
     </platform>
 
-    <platform name="android">
+    <!--<platform name="android">
 
         <source-file src="src/android/ZBarScanner.java" target-dir="src/com/mrameezraja/plugins/zbarscanner" />
 
@@ -84,12 +84,11 @@
         <config-file target="AndroidManifest.xml" parent="/manifest">
             <uses-permission android:name="android.permission.CAMERA" />
             <uses-permission android:name="android.permission.FLASHLIGHT" />
-            <!-- Not required to allow users to work around this -->
             <uses-feature android:name="android.hardware.camera" android:required="false" />
         </config-file>
 
         <framework src="src/android/barcodescanner.gradle" custom="true" type="gradleReference"/>
         <resource-file src="src/android/barcodescanner-release-2.0.1.aar" target="libs/barcodescanner.aar" />
 
-    </platform>
+    </platform>-->
 </plugin>
